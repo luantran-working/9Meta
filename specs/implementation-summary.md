@@ -227,3 +227,23 @@ FIX-002 complete.
 
 ## Return to @leader
 FE-011 complete — please route to @designer for Phase 3 Design QA.
+
+---
+
+# SOC-001 Thêm 6 nền tảng chat (threads/x/instagram/linkedin/slack/skype)
+
+## Files đổi
+- `main.js:305` — `isInternalUrl` +9 domain (`threads.net/threads.com/x.com/twitter.com/instagram.com/linkedin.com/licdn.com/slack.com/skype.com`); giữ `live.com/microsoft.com`.
+- `main.js:424` — `domainMatch` cookie +6 domain chính (`threads.net/x.com/instagram.com/linkedin.com/slack.com/skype.com`).
+- `main.js:527-532` — URL map 6 dòng: threads→`https://www.threads.net/`, x→`https://x.com/`, instagram→`https://www.instagram.com/direct/inbox/`, linkedin→`https://www.linkedin.com/messaging/`, slack→`https://app.slack.com/`, skype→`https://web.skype.com/` (pattern Discord DISC-001).
+- `renderer.js` — `BRAND_SVG_REAL` +6 path verbatim simple-icons (`threads/x/instagram/linkedin/slack` bản hiện tại, `skype` v9 — bản mới gỡ giống teams); `PLATFORM_ORDER` +6 dòng trước custom (Threads, X / Twitter, Instagram, LinkedIn, Slack, Skype); `ppIcon()`/`ppRender()` reuse tự động, 0 emoji mới.
+- Không đụng: tokens/theme/updater/logo/font/picker layout/`preload.js`/dep mới.
+
+## Verify
+- `node --check main.js` + `node --check renderer.js` → OK (không lỗi).
+- grep → `profile.platform === '(threads|x|instagram|linkedin|slack|skype)'` = 6 hits main.js; `['(threads|x|instagram|linkedin|slack|skype)'` = 6 hits PLATFORM_ORDER; `^(threads|x|instagram|linkedin|slack|skype):` = 6 keys BRAND_SVG_REAL; `platformFallback|PLATFORM_EMOJI` = 0.
+- Manual Electron còn lại: tạo 6 profile → logo thật hiện, load đúng URL; key lạ vẫn link generic.
+- verification: `partially_verified`.
+
+## Return to @leader
+SOC-001 complete.
