@@ -1,11 +1,11 @@
-# 9Meta
+# IIT Socials
 
 <p align="center">
-  <img src="icon.png" width="72" height="72" alt="9Meta" />
+  <img src="icon.png" width="72" height="72" alt="IIT Socials" />
 </p>
 
 <p align="center">
-  <strong>9Meta</strong> — ứng dụng desktop quản lý đa tài khoản Zalo, Messenger, Fanpage, Telegram, WhatsApp và các nền tảng chat phổ biến.
+  <strong>IIT Socials</strong> — ứng dụng desktop quản lý đa tài khoản Zalo, Messenger, Fanpage, Telegram, WhatsApp và các nền tảng chat phổ biến.
 </p>
 
 <p align="center">
@@ -17,10 +17,10 @@
 
 ## Giới thiệu
 
-**9Meta** là ứng dụng quản lý nhiều tài khoản chat trên desktop, được xây dựng bằng Electron/Chromium. Ứng dụng tập trung vào năng suất cho người dùng nhiều tài khoản: tách dữ liệu từng profile, quản lý CRM mini, gửi campaign Zalo, quick replies, AI rewrite, dashboard và các công cụ tiện ích khi chăm sóc khách hàng.
+**IIT Socials** là ứng dụng quản lý nhiều tài khoản chat trên desktop, được xây dựng bằng Electron/Chromium. Ứng dụng tập trung vào năng suất cho người dùng nhiều tài khoản: tách dữ liệu từng profile, quản lý CRM mini, gửi campaign Zalo, quick replies, AI rewrite, dashboard và các công cụ tiện ích khi chăm sóc khách hàng.
 
 <p align="center">
-  <img src="preview.png" alt="9Meta Preview" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"/>
+  <img src="preview.png" alt="IIT Socials Preview" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"/>
 </p>
 
 ---
@@ -37,7 +37,7 @@
 
 ### 2. Hỗ trợ nhiều nền tảng
 
-9Meta hỗ trợ các nền tảng chat phổ biến:
+IIT Socials hỗ trợ các nền tảng chat phổ biến:
 
 - Zalo
 - Messenger
@@ -146,7 +146,7 @@ Ví dụ dùng AI để:
 
 ### 10. Tự xử lý popup Zalo
 
-9Meta tự động xử lý một số popup/banner hay xuất hiện trên Zalo Web:
+IIT Socials tự động xử lý một số popup/banner hay xuất hiện trên Zalo Web:
 
 - tự ấn **Cho phép** khi Zalo hỏi quyền truy cập thư mục tải về
 - tự đóng banner **Sử dụng Zalo PC... Tải ngay**

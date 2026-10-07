@@ -5,18 +5,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-    content="9Meta - Quản lý đa tài khoản Zalo, Messenger, Fanpage, Telegram, WhatsApp trên Desktop với CRM, Campaign, AI và Analytics.">
-  <title>9Meta Control Center</title>
+    content="IIT Socials - Quản lý đa tài khoản Zalo, Messenger, Fanpage, Telegram, WhatsApp trên Desktop với CRM, Campaign, AI và Analytics.">
+  <title>IIT Socials</title>
   <style>
-    :root {
-      --sidebar: 72px;
+    :root, body.dark-mode {
+      --sidebar: 4.5rem; --sidebar-btn: 2.75rem; --radius: .625rem;
+      --background: rgba(6,11,20,1); --foreground: #eef4ff;
+      --primary: #6ea8ff; --primary-fg: #060b14;
+      --secondary: rgba(255,255,255,.08); --secondary-fg: #eef4ff;
+      --muted-fg: #a9bcd9; --border: rgba(255,255,255,.1);
+      --accent: #7c5cff; --destructive: #ff5c7c; --ring: #6ea8ff;
       --bg: #08111f;
       --panel: rgba(11, 18, 34, .78);
       --panel-soft: rgba(255, 255, 255, .06);
       --line: rgba(255, 255, 255, .1);
       --text: #eef4ff;
-      --muted: #8ea2c8;
-      --primary: #6ea8ff;
+      --muted: #a9bcd9;
       --primary-2: #7c5cff;
       --success: #30d158;
       --danger: #ff5c7c;
@@ -28,13 +32,22 @@
       box-sizing: border-box;
     }
 
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/quicksand-400-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/quicksand-500-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/quicksand-600-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/quicksand-700-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/quicksand-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/quicksand-500.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/quicksand-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Quicksand';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/quicksand-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
     html,
     body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      font-family: Quicksand, Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(84, 123, 255, .22), transparent 30%),
         radial-gradient(circle at top right, rgba(124, 92, 255, .16), transparent 26%),
@@ -43,12 +56,17 @@
     }
 
     body.light-mode {
+      --background: #fff; --foreground: #17253d;
+      --primary: #2563eb; --primary-fg: #fff;
+      --secondary: rgba(16,30,60,.06); --secondary-fg: #0f2c58;
+      --muted-fg: #475569; --border: rgba(16,30,60,.1);
+      --ring: #2563eb;
       --bg: #eef4ff;
       --panel: rgba(255, 255, 255, .84);
       --panel-soft: rgba(8, 22, 46, .05);
       --line: rgba(8, 22, 46, .08);
       --text: #17253d;
-      --muted: #64748b;
+      --muted: #475569;
       --shadow: 0 24px 60px rgba(66, 92, 140, .16);
       background:
         radial-gradient(circle at top left, rgba(110, 168, 255, .28), transparent 34%),
@@ -65,34 +83,44 @@
 
     #sidebar {
       height: 100%;
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      background: linear-gradient(180deg, rgba(9, 14, 26, .92), rgba(10, 18, 31, .72));
-      border-right: 1px solid var(--line);
+      background: var(--background);
+      border-right: 1px solid var(--border);
+      box-shadow: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 14px 0 10px;
-      box-shadow: 8px 0 40px rgba(0, 0, 0, .25);
+      padding: 12px 0 10px;
       z-index: 5;
     }
 
     body.light-mode #sidebar {
-      background: linear-gradient(180deg, rgba(255, 255, 255, .86), rgba(244, 248, 255, .82));
+      background: #fff;
     }
 
     #brand-badge {
-      width: 48px;
-      height: 48px;
-      border-radius: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      color: white;
-      font-weight: 900;
-      letter-spacing: .6px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: 0 16px 30px rgba(90, 117, 255, .35);
-      margin-bottom: 14px;
+      background: #fff; /* DS-011: plate trắng cố định dark+light */
+      color: #0b1220; /* DS-011: fallback chữ "IIT" đọc được trên trắng */
+      border: 1px solid var(--line); /* DS-011: định viền khi sidebar light cũng trắng */
+      font-weight: 800;
+      font-size: 12px; /* DS-010: "IIT" 3 ký tự vừa 40px */
+      letter-spacing: .2px;
+      box-shadow: none;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    #brand-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* DS-010 fix badge clip: contain + padding thay cover */
+      padding: 6px;
+      display: block;
+      background: #fff; /* DS-011: img transparent vẫn trắng */
     }
 
     #profiles-list {
@@ -100,14 +128,22 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      gap: 10px;
+      gap: 8px;
+      flex: 1;
       overflow-y: auto;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
       padding-bottom: 8px;
     }
 
     #profiles-list::-webkit-scrollbar {
-      display: none;
+      width: 6px;
+      display: block;
+    }
+
+    #profiles-list::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 999px;
     }
 
     .profile-btn,
@@ -115,56 +151,79 @@
       position: relative;
       border: 0;
       cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
     .profile-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .04));
-      border: 1px solid rgba(255, 255, 255, .08);
-      color: var(--text);
+      width: var(--sidebar-btn);
+      height: var(--sidebar-btn);
+      border-radius: 14px;
+      background: var(--secondary);
+      color: var(--secondary-fg);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
+      font-weight: 700;
+      font-size: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background .15s ease, border-color .15s ease;
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
     }
 
-    body.light-mode .profile-btn {
-      background: linear-gradient(135deg, rgba(255, 255, 255, .95), rgba(241, 245, 255, .96));
-      border-color: rgba(16, 30, 60, .08);
-    }
-
-    .profile-btn:hover,
-    .tool-btn:hover {
-      transform: translateY(-2px) scale(1.04);
+    .profile-btn:hover {
+      background: rgba(110,168,255,.18);
+      border-color: rgba(110,168,255,.4);
     }
 
     .profile-btn.active {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #fff;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 14px 34px rgba(98, 112, 255, .4);
+      background: var(--primary);
+      color: var(--primary-fg);
+      border-color: transparent;
+    }
+
+    .profile-btn:focus-visible,
+    .tool-btn:focus-visible,
+    #btn-add-profile:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .profile-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .profile-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .profile-btn svg.brand {
+      width: 20px;
+      height: 20px;
+      flex: none;
     }
 
     .badge {
       position: absolute;
-      top: -4px;
-      right: -5px;
-      min-width: 17px;
-      height: 17px;
+      top: 2px; /* DS-010: badge-inside, tránh .profile-btn overflow:hidden cắt góc */
+      right: 2px;
+      min-width: 18px;
+      height: 18px;
       border-radius: 999px;
-      padding: 0 4px;
+      padding: 0 5px;
       display: none;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #ff496d, #ff8744);
+      background: var(--destructive);
       color: #fff;
-      font-size: 9px;
-      font-weight: 800;
-      border: 2px solid #0f1624;
+      font-size: 10px;
+      font-weight: 700;
+      border: 2px solid var(--background);
     }
 
     .sidebar-spacer {
@@ -172,42 +231,38 @@
     }
 
     .tool-btn {
-      width: 44px;
-      height: 44px;
+      width: 2.5rem;
+      height: 2.5rem;
       margin-bottom: 6px;
-      border-radius: 17px;
+      border-radius: 12px;
       background: transparent;
-      color: var(--muted);
+      color: var(--muted-fg);
+      border: 1px solid transparent;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .tool-btn:hover,
+    .tool-btn:hover {
+      background: var(--secondary);
+      color: var(--secondary-fg);
+    }
+
     .tool-btn.active {
-      color: #fff;
-      background: rgba(255, 255, 255, .08);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+      background: var(--secondary);
+      color: var(--foreground);
+      border-color: var(--border);
     }
 
     .tool-btn.launcher {
       margin-bottom: 8px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 28% 18%, rgba(255, 255, 255, .22), transparent 34%),
-        linear-gradient(135deg, rgba(110, 168, 255, .95), rgba(124, 92, 255, .92));
-      box-shadow: 0 16px 34px rgba(99, 116, 255, .36);
-    }
-
-    .tool-btn.launcher.active {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 18px 42px rgba(99, 116, 255, .5), 0 0 0 1px rgba(255, 255, 255, .14) inset;
+      background: var(--primary);
+      color: var(--primary-fg);
     }
 
     body.light-mode .tool-btn:hover,
     body.light-mode .tool-btn.active {
       color: #0f2c58;
-      background: rgba(16, 30, 60, .06);
     }
 
     body.light-mode .tool-btn.launcher,
@@ -226,9 +281,42 @@
     }
 
     #btn-add-profile {
-      margin-top: 10px;
-      border: 1.5px dashed rgba(255, 255, 255, .2);
-      background: rgba(255, 255, 255, .04);
+      margin-top: 8px;
+      width: var(--sidebar-btn);
+      height: var(--sidebar-btn);
+      border-radius: 14px;
+      border: 1.5px dashed var(--border);
+      background: transparent;
+      color: var(--muted-fg);
+    }
+
+    #btn-add-profile:hover {
+      color: var(--foreground);
+      border-color: var(--ring);
+      background: var(--secondary);
+    }
+    #btn-add-profile svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;stroke-linecap:round;fill:none}
+
+    [data-tip] {
+      position: relative;
+    }
+
+    [data-tip]:hover::after,
+    [data-tip]:focus-visible::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: calc(100% + 10px);
+      top: 50%;
+      translate: 0 -50%;
+      white-space: nowrap;
+      background: var(--foreground);
+      color: var(--background);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 8px;
+      z-index: 50;
+      pointer-events: none;
     }
 
     #tools-overlay {
@@ -378,7 +466,7 @@
       margin-top: 3px;
       color: var(--muted);
       font-size: 11px;
-      line-height: 1.25;
+      line-height: 1.55;
     }
 
     .tools-mini-row {
@@ -530,6 +618,48 @@
       color: #0f172a;
     }
 
+    .pp-wrap { position: relative; margin-top: 16px; }
+    .pp-trigger {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 0; cursor: pointer; text-align: left; width: 100%;
+      min-height: 48px; box-sizing: border-box; line-height: 1.5;
+    }
+    /* ponytail: trigger reuse .modal-input nên chỉ thêm flex + min-height chốt metrics */
+    .pp-trigger-icon, .pp-item-icon { display: inline-flex; flex-shrink: 0; width: 18px; height: 18px; align-items: center; justify-content: center; }
+    .pp-trigger-icon svg, .pp-item-icon svg { width: 18px; height: 18px; display: block; }
+    /* DS-006: Zalo mini glyph — wordmark 18px illegible nên dùng Z duy nhất trong picker */
+    .pp-z { width: 18px; height: 18px; border-radius: 5px; background: #0068ff; color: #fff;
+      font-size: 12px; font-weight: 800; line-height: 1; display: inline-flex;
+      align-items: center; justify-content: center; flex: none; }
+    #pp-trigger-label, .pp-item-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pp-chevron { margin-left: auto; opacity: .6; transition: transform .15s ease-out; flex-shrink: 0; }
+    .pp-trigger[aria-expanded="true"] .pp-chevron { transform: rotate(180deg); }
+    .pp-listbox {
+      position: fixed; z-index: 200; /* ponytail: fixed = thoát .modal-box overflow:auto, không chiếm layout; left/top/width do JS ppPosition() set */
+      max-height: 220px; overflow-y: auto; overscroll-behavior: contain; padding: 4px;
+      scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+      background: hsl(var(--popover, 222 40% 9%)); color: inherit;
+      border: 1px solid var(--line); border-radius: calc(var(--radius, .625rem) + 2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.45);
+    }
+    .pp-listbox::-webkit-scrollbar { width: 6px; }
+    .pp-listbox::-webkit-scrollbar-track { background: transparent; }
+    .pp-listbox::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+    body.light-mode .pp-listbox { background: #fff; box-shadow: 0 12px 32px rgba(15,23,42,.16); }
+    .pp-item {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      min-height: 40px; padding: 8px 10px; border: 0; border-radius: 8px;
+      background: transparent; color: inherit; font: inherit; cursor: pointer; text-align: left;
+    }
+    .pp-item:hover, .pp-item[data-active="true"] { background: rgba(110,168,255,.12); }
+    body.light-mode .pp-item:hover, body.light-mode .pp-item[data-active="true"] { background: rgba(37,99,235,.08); }
+    .pp-item[aria-selected="true"] { font-weight: 700; }
+    .pp-check { visibility: hidden; font-weight: 700; margin-left: auto; flex-shrink: 0; }
+    .pp-item[aria-selected="true"] .pp-check { visibility: visible; }
+    .pp-trigger:focus-visible, .pp-item:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .pp-trigger-icon svg, .pp-item-icon svg { color: inherit; }
+    @media (prefers-reduced-motion: reduce) { .pp-chevron { transition: none; } }
+
     .modal-textarea {
       min-height: 110px;
       resize: vertical;
@@ -568,6 +698,18 @@
     .modal-btn.warn {
       background: rgba(255, 92, 124, .16);
       color: #ff7d97;
+    }
+    /* // ponytail: không đụng .row global (dùng chung 10+ nơi); margin-left:auto để mode Thêm (Xóa ẩn) vẫn neo phải. */
+    .modal-actions { gap: 8px; flex-wrap: wrap; }
+    .modal-actions-group { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+    .modal-actions .modal-btn { min-height: 40px; padding: 10px 16px; border-radius: var(--radius); }
+    .modal-actions .modal-btn.save { min-width: 96px; }
+    .modal-actions .modal-btn.warn { border: 1px solid rgba(255,92,124,.35); }
+    .modal-actions .modal-btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .modal-actions .modal-btn:disabled { opacity: .5; cursor: not-allowed; }
+    @media (max-width: 400px) {
+      .modal-actions-group { flex: 1 1 100%; }
+      .modal-actions-group .modal-btn { flex: 1; }
     }
 
     .grid-2,
@@ -636,7 +778,7 @@
     .metric-value {
       font-size: 34px;
       font-weight: 900;
-      letter-spacing: -.8px;
+      letter-spacing: -0.01em;
     }
 
     .metric-foot {
@@ -820,22 +962,29 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 
-<body class="dark-mode">
+<body class="light-mode">
   <div id="app-shell">
     <div id="sidebar">
-      <div id="brand-badge">9M</div>
+      <div id="brand-badge"><img src="icon.png" alt="IIT Socials">IIT</div>
       <div id="profiles-list"></div>
-      <button class="profile-btn" id="btn-add-profile" title="Thêm tài khoản">
+      <button type="button" class="profile-btn" id="btn-add-profile" data-tip="Thêm tài khoản" aria-label="Thêm tài khoản">
         <svg viewBox="0 0 24 24">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
       </button>
       <div class="sidebar-spacer"></div>
-      <button class="tool-btn launcher" id="btn-tools-launcher" title="Mở bảng công cụ">
+      <button type="button" class="tool-btn launcher" id="btn-tools-launcher" data-tip="Mở bảng công cụ" aria-label="Mở bảng công cụ">
         <svg viewBox="0 0 24 24">
           <path d="M4 4h6v6H4z"></path>
           <path d="M14 4h6v6h-6z"></path>
@@ -849,10 +998,10 @@
 
   <div id="tools-overlay" aria-hidden="true">
     <div class="tools-scrim" data-tools-close="true"></div>
-    <div class="tools-panel" role="dialog" aria-label="Bảng công cụ 9Meta">
+    <div class="tools-panel" role="dialog" aria-label="Bảng công cụ IIT Socials">
       <div class="tools-head">
         <div>
-          <h3 class="tools-title">Bảng công cụ 9Meta</h3>
+          <h3 class="tools-title">Bảng công cụ IIT Socials</h3>
           <p class="tools-subtitle">9 chức năng chính trong một launcher gọn gàng.</p>
         </div>
         <button class="modal-btn cancel" id="tools-close">Đóng</button>
@@ -1159,27 +1308,31 @@
         </div>
         <div class="muted" onclick="document.getElementById('avatar-input').click()" style="cursor:pointer;">Chọn ảnh
           đại diện<br>(Tùy chọn)</div>
+        <button id="avatar-clear" type="button" class="modal-btn cancel" style="display:none;">Xóa ảnh</button>
         <input type="file" id="avatar-input" accept="image/*" style="display:none;">
       </div>
       <input type="text" id="profile-name-input" class="modal-input" placeholder="Tên hiển thị (để trống = tự lấy)">
       <input type="text" id="profile-proxy-input" class="modal-input"
         placeholder="Proxy: ip:port hoặc ip:port:user:pass">
-      <select id="profile-platform-input" class="modal-select">
-        <option value="zalo">💬 Zalo</option>
-        <option value="telegram">✈️ Telegram</option>
-        <option value="messenger">💙 Messenger</option>
-        <option value="fanpage">🚩 FB Fanpage</option>
-        <option value="facebook">📘 Facebook</option>
-        <option value="whatsapp">💚 WhatsApp</option>
-        <option value="teams">🟣 Microsoft Teams</option>
-        <option value="gmail">📧 Google / Gmail</option>
-        <option value="custom">🔗 Custom Link</option>
-      </select>
+      <input type="hidden" id="profile-platform-input" value="zalo">
+      <div class="pp-wrap" id="platform-picker">
+        <button type="button" class="modal-input pp-trigger" id="pp-trigger"
+          aria-haspopup="listbox" aria-expanded="false" aria-labelledby="pp-trigger-label">
+          <span class="pp-trigger-icon" id="pp-trigger-icon" aria-hidden="true"></span>
+          <span id="pp-trigger-label">Zalo</span>
+          <svg class="pp-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="pp-listbox" id="pp-listbox" role="listbox" aria-label="Nền tảng"
+          tabindex="-1" hidden></div>
+      </div>
       <input type="url" id="profile-custom-url-input" class="modal-input"
         placeholder="Nhập URL đầy đủ (VD: https://discord.com/app)"
         style="display:none;">
-      <div class="row mt-16"><button class="modal-btn warn" id="modal-delete" style="display:none;">Xóa</button>
-        <div><button class="modal-btn cancel" id="modal-cancel">Hủy</button><button class="modal-btn save"
+      <div class="row mt-16 modal-actions"><button class="modal-btn warn" id="modal-delete" style="display:none;">Xóa</button>
+        <div class="modal-actions-group"><button class="modal-btn cancel" id="modal-cancel">Hủy</button><button class="modal-btn save"
             id="modal-save">Lưu</button></div>
       </div>
     </div>

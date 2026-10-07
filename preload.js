@@ -293,7 +293,6 @@ function runInjection(currentSettings) {
             if (!avatarEl) {
               var imgs = Array.from(document.querySelectorAll('img'));
               avatarEl = imgs.find(img => img.src && (img.src.includes('ava') || img.src.includes('zavatar')));
-              if (!avatarEl && imgs.length > 0) avatarEl = imgs[0];
             }
             if (nameEl) info.name = (nameEl.innerText || '').replace(/\s+/g, ' ').trim();
             if (avatarEl) info.avatar = avatarEl.src;

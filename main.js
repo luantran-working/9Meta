@@ -1,5 +1,5 @@
 // ============================================================
-//  Ứng dụng 9Meta Desktop
+//  Ứng dụng IIT Socials Desktop
 //  Nhân: Chromium (Google Chrome)
 //  Tác giả: Nguyễn Đình Thọ
 // ============================================================
@@ -41,7 +41,7 @@ const DEFAULT_SETTINGS = {
   minimizeToTray: true,
   globalHotkey: 'Ctrl+Shift+M',
   currentTheme: 'default',
-  isDarkMode: true,
+  isDarkMode: false,
   alwaysOnTop: false,
   blockSeen: false,
   blockTyping: false,
@@ -166,7 +166,7 @@ function createTray() {
   try { trayIcon = nativeImage.createFromPath(iconPath).resize({ width: 16, height: 16 }); } catch { trayIcon = nativeImage.createEmpty(); }
   tray = new Tray(trayIcon);
   updateTrayMenu();
-  tray.setToolTip('9Meta');
+  tray.setToolTip('IIT Socials');
   tray.on('click', () => {
     if (!mainWindow) return;
     if (mainWindow.isVisible() && mainWindow.isFocused()) mainWindow.hide();
@@ -178,7 +178,7 @@ function createTray() {
 function updateTrayMenu() {
   if (!tray) return;
   const contextMenu = Menu.buildFromTemplate([
-    { label: '💬 Mở 9Meta', click: () => { mainWindow.show(); mainWindow.focus(); } },
+    { label: '💬 Mở IIT Socials', click: () => { mainWindow.show(); mainWindow.focus(); } },
     { label: '🔒 Khóa ứng dụng', click: lockApp },
     { type: 'separator' },
     { label: '🔄 Tải lại trang', click: () => activeProfileId && browserViews[activeProfileId]?.webContents.reload() },
@@ -210,7 +210,9 @@ function toggleBlockSeen(enable) { settings.blockSeen = enable; saveSettings(set
 function toggleBlockTyping(enable) { settings.blockTyping = enable; saveSettings(settings); broadcastBlockSettings(); }
 function toggleZadarkShield(enable) { settings.zadarkShield = enable; saveSettings(settings); broadcastBlockSettings(); updateTrayMenu(); }
 
+const AUTO_UPDATE_ENABLED = false; // ponytail: tạm tắt auto-update, bật lại = true
 function setupAutoUpdater() {
+  if (!AUTO_UPDATE_ENABLED) return;
   autoUpdater.autoDownload = false;
   autoUpdater.logger = require('electron').app.isPackaged ? null : console;
   autoUpdater.on('checking-for-update', () => {
@@ -283,7 +285,13 @@ function setupAutoUpdater() {
   setTimeout(() => autoUpdater.checkForUpdates().catch(() => { }), 5000);
 }
 let isManualUpdateCheck = false;
-function checkForUpdates(manual = false) { isManualUpdateCheck = manual; autoUpdater.checkForUpdates().catch(err => setUpdateState({ status: 'error', message: (err.message || err.toString()).split('\n')[0] })); }
+function checkForUpdates(manual = false) {
+  if (!AUTO_UPDATE_ENABLED) { // ponytail: báo tắt, giữ code để bật lại 1 dòng
+    setUpdateState({ status: 'idle', message: 'Tự động cập nhật đang tạm tắt.' });
+    if (manual && mainWindow) dialog.showMessageBox(mainWindow, { type: 'info', title: 'Cập nhật', message: 'Tự động cập nhật đang tạm tắt.' });
+    return;
+  }
+  isManualUpdateCheck = manual; autoUpdater.checkForUpdates().catch(err => setUpdateState({ status: 'error', message: (err.message || err.toString()).split('\n')[0] })); }
 function toggleAutoLaunch(enable) { settings.autoLaunch = enable; saveSettings(settings); app.setLoginItemSettings({ openAtLogin: enable, path: app.getPath('exe') }); }
 
 function updateBrowserViewBounds() {
@@ -294,7 +302,7 @@ function updateBrowserViewBounds() {
   view.setAutoResize({ width: true, height: true });
 }
 function isInternalUrl(url) {
-  return ['chat.zalo.me', 'id.zalo.me', 'messenger.com', 'facebook.com', 'web.whatsapp.com', 'whatsapp.com', 'teams.microsoft.com', 'microsoft.com', 'live.com', 'office.com', 'google.com', 'gmail.com', 'web.telegram.org', 'telegram.org', 't.me'].some(d => url.includes(d));
+  return ['chat.zalo.me', 'id.zalo.me', 'messenger.com', 'facebook.com', 'web.whatsapp.com', 'whatsapp.com', 'discord.com', 'cdn.discordapp.com', 'discordapp.com', 'teams.microsoft.com', 'microsoft.com', 'live.com', 'office.com', 'google.com', 'gmail.com', 'web.telegram.org', 'telegram.org', 't.me', 'threads.net', 'threads.com', 'x.com', 'twitter.com', 'instagram.com', 'linkedin.com', 'licdn.com', 'slack.com', 'skype.com'].some(d => url.includes(d));
 }
 function getProfilePlatform(profileId) {
   try {
@@ -405,15 +413,15 @@ function createWindow() {
   const { windowBounds } = settings;
   mainWindow = new BrowserWindow({
     width: windowBounds.width || 1200, height: windowBounds.height || 800, x: windowBounds.x, y: windowBounds.y,
-    minWidth: 400, minHeight: 300, title: '9Meta', icon: path.join(__dirname, 'icon.png'),
-    backgroundColor: settings.isDarkMode ? '#242526' : '#ffffff', show: !settings.startMinimized, autoHideMenuBar: true, titleBarOverlay: false,
+    minWidth: 400, minHeight: 300, title: 'IIT Socials', icon: path.join(__dirname, 'icon.png'),
+    backgroundColor: settings.isDarkMode ? '#060b14' : '#ffffff', show: !settings.startMinimized, autoHideMenuBar: true, titleBarOverlay: false,
     webPreferences: { nodeIntegration: true, contextIsolation: false, spellcheck: false },
   });
 
   app.on('session-created', (sess) => {
     setupDownloads(sess);
     sess.cookies.on('changed', (event, cookie, cause, removed) => {
-      const domainMatch = cookie.domain && ['zalo.me', 'messenger.com', 'facebook.com', 'whatsapp.com', 'telegram.org'].some(d => cookie.domain.includes(d));
+      const domainMatch = cookie.domain && ['zalo.me', 'messenger.com', 'facebook.com', 'whatsapp.com', 'discord.com', 'telegram.org', 'threads.net', 'x.com', 'instagram.com', 'linkedin.com', 'slack.com', 'skype.com'].some(d => cookie.domain.includes(d));
       if (!removed && cookie.session && domainMatch) {
         const prefix = cookie.domain.startsWith('.') ? 'www' : '';
         sess.cookies.set({ url: `https://${prefix}${cookie.domain}${cookie.path}`, name: cookie.name, value: cookie.value, domain: cookie.domain, path: cookie.path, secure: cookie.secure, httpOnly: cookie.httpOnly, expirationDate: Math.floor(Date.now() / 1000) + 31536000 }).catch(() => { });
@@ -512,9 +520,16 @@ function createWindow() {
       else if (profile.platform === 'fanpage') url = 'https://www.facebook.com/latest/inbox/';
       else if (profile.platform === 'facebook') url = 'https://www.facebook.com/';
       else if (profile.platform === 'whatsapp') url = 'https://web.whatsapp.com/';
+      else if (profile.platform === 'discord') url = 'https://discord.com/channels/@me/';
       else if (profile.platform === 'teams') url = 'https://teams.microsoft.com/';
       else if (profile.platform === 'gmail') url = 'https://mail.google.com/';
       else if (profile.platform === 'telegram') url = 'https://web.telegram.org/a/';
+      else if (profile.platform === 'threads') url = 'https://www.threads.net/';
+      else if (profile.platform === 'x') url = 'https://x.com/';
+      else if (profile.platform === 'instagram') url = 'https://www.instagram.com/direct/inbox/';
+      else if (profile.platform === 'linkedin') url = 'https://www.linkedin.com/messaging/';
+      else if (profile.platform === 'slack') url = 'https://app.slack.com/';
+      else if (profile.platform === 'skype') url = 'https://web.skype.com/';
       else if (profile.platform === 'custom' && profile.customUrl) url = profile.customUrl;
       view.webContents.loadURL(url, { userAgent: ua });
     }
@@ -569,7 +584,7 @@ function createWindow() {
   });
 
   ipcMain.on('update-badge', (event, count) => { if (count !== unreadCount) { const hadNewMessages = count > unreadCount; unreadCount = count; updateBadge(unreadCount); if (hadNewMessages && !mainWindow.isFocused()) mainWindow.flashFrame(true); } });
-  ipcMain.on('set-theme', (event, isDark) => { settings.isDarkMode = isDark; saveSettings(settings); nativeTheme.themeSource = isDark ? 'dark' : 'light'; });
+  ipcMain.on('set-theme', (event, isDark) => { settings.isDarkMode = isDark; saveSettings(settings); nativeTheme.themeSource = isDark ? 'dark' : 'light'; if (mainWindow && !mainWindow.isDestroyed()) mainWindow.setBackgroundColor(isDark ? '#060b14' : '#ffffff'); });
   ipcMain.on('toggle-always-on-top', () => { settings.alwaysOnTop = !settings.alwaysOnTop; mainWindow.setAlwaysOnTop(settings.alwaysOnTop); saveSettings(settings); });
   ipcMain.on('toggle-fullscreen', () => { mainWindow.setFullScreen(!mainWindow.isFullScreen()); setTimeout(updateBrowserViewBounds, 100); });
   ipcMain.on('zoom-in', () => { const wc = activeProfileId && browserViews[activeProfileId]?.webContents; if (wc) wc.setZoomLevel(wc.getZoomLevel() + 0.5); });
@@ -1005,7 +1020,7 @@ function updateBadge(count) {
     if (count > 0) { try { mainWindow.setOverlayIcon(createBadgeIcon(count), `${count} tin nhắn chưa đọc`); } catch { mainWindow.setOverlayIcon(null, ''); } }
     else mainWindow.setOverlayIcon(null, '');
   }
-  if (tray) tray.setToolTip(count > 0 ? `9Meta — ${count} tin nhắn chưa đọc` : '9Meta');
+  if (tray) tray.setToolTip(count > 0 ? `IIT Socials — ${count} tin nhắn chưa đọc` : 'IIT Socials');
 }
 function registerGlobalShortcuts() {
   const hotkey = settings.globalHotkey || 'Ctrl+Shift+M';
@@ -1013,6 +1028,15 @@ function registerGlobalShortcuts() {
 }
 
 app.whenReady().then(() => {
+  // DS-010: migrate userData 9Meta -> IIT Socials (chạy 1 lần, giữ data user cũ)
+  try {
+    const oldDir = path.join(path.dirname(app.getPath('userData')), '9Meta');
+    const newDir = app.getPath('userData');
+    if (newDir !== oldDir && fs.existsSync(oldDir) && !fs.existsSync(path.join(newDir, 'settings.json'))) {
+      fs.cpSync(oldDir, newDir, { recursive: true, force: false });
+      settings = loadSettings(); // ponytail: reload sau migrate, kẻo settings memory cũ ghi đè file vừa copy
+    }
+  } catch { /* ponytail: fresh-start nếu copy lỗi, app vẫn chạy */ }
   Menu.setApplicationMenu(null);
   nativeTheme.themeSource = settings.isDarkMode ? 'dark' : 'light';
   createWindow();
